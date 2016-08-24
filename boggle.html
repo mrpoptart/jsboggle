@@ -1,0 +1,111 @@
+<style>
+.lined:after
+{
+	content: '__';
+    position: absolute;
+    font-size: 100px;
+    top: 12px;
+    left: 45px;
+}
+.letter
+{
+	background-color: #fff9f0;
+    font-size: 144px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    color:#222;
+    width: 200px;
+    height: 200px;
+    float: left;
+    text-align: center;
+    line-height: 200px;
+    border: 10px solid #555;
+    border-radius: 25px;
+    margin: 1px;
+}
+.letter:nth-child(5n+6) {
+    clear: both;
+}
+#board{
+    margin-left: calc(50% - 545px);
+}
+</style>
+<div id="board"></div>
+<script language="javascript1.1">
+function boggle(){
+
+   var i = 0, k = 0 ;
+
+   var ranvar, last, save;
+
+   var g = new Array(15);
+
+   var dice = new Array(15);
+
+   var d = new Array(	"fayirs",
+						"eeeeam",
+						"toootu",
+						"hordnl",
+						"yrrrip",
+						"tettmo",
+						"dnaenn",
+						"hlrndo",
+						"gaemeu",
+						"wonotu",
+						"vgrrow",
+						"pletic",
+						"asrafa",
+						"dnodht",
+						"rfiasa",
+						"drolhh",
+						"tesccn",
+						"jkbxzq",
+						"nagmne",
+						"sesusn",
+						"pfsyri",
+						"itecil",
+						"tetiii",
+						"eeeeaa",
+						"piestc");
+	d.sort(function(){return 0.5 - Math.random()});
+	
+	var out = '';
+    if(!!window.location.search) {
+    	var board = window.location.search.slice(1).split('');
+    }
+    var boggle_board = document.getElementById('board');
+           
+	for(var w=0; w<5; w++)
+	{
+		for(var h=0; h<5; h++)
+		{
+			var lined = false;
+			if(!!window.location.search) {
+				var l = board.shift();
+				var deg = board.shift() * 90;
+			} else {
+				var sd = d.pop();
+				var l = sd.charAt(Math.floor(Math.random() * 6));
+				l = l.toUpperCase(l);
+				var deg = Math.floor(Math.random() * 4) * 90;
+			}
+
+			out += l + (deg/90);
+			if(l == "Q")
+			{
+				l = "Qu";
+			}
+			if("WMZN".split('').indexOf(l)!=-1)
+			{
+				lined = true;
+			}
+			
+			boggle_board.innerHTML += "<div class=\"letter"+(lined?' lined':'')+"\" style=\"transform:rotate("+ deg +"deg)\">"+l+"</div>";
+		}
+	}
+	if(!window.location.search){
+		window.location.search = '?' + out;
+	}
+}
+boggle();
+</script>
